@@ -21,42 +21,18 @@ import {
   solver,
   moveDisk,
   generatePlayground,
-  diskProps,
 } from 'Core/index';
 
-import Torch from 'Components/torch';
-import Disk from 'Components/disk';
+import Playground from 'Components/playground';
 
-let solution = [];
+// let solution = new Map();
+const getMove = (step) => console.log(step) || step;
 
 const HanoiTowerResolver = () => {
   const [n, setN] = useState(8);
-  const [playground, updatePlayground] = useState(generatePlayground(n, diskProps));
-  const [isSolving, setSolving] = useState(false);
 
-  const getMove = useCallback((sol) => {
-    solution.push(sol);
-    return sol;
-  }, [solution]);
+  const playground = generatePlayground(n);
 
-  useEffect(() => {
-    updatePlayground(generatePlayground(n, diskProps));
-    solution = [];
-  }, [n]);
-
-  useEffect(() => {
-    if (isSolving) {
-      solver({
-        height: n,
-        playground,
-        move: compose(getMove, moveDisk),
-      });
-
-      setSolving(false);
-    }
-  }, [isSolving]);
-
-  console.log(solution)
 
   return (
     <ThemeProvider theme={theme}>
@@ -104,39 +80,21 @@ const HanoiTowerResolver = () => {
             </Button>
 
             <Button
-              onClick={() => setSolving(true)}
+              onClick={() => solver({
+                height: n,
+                playground,
+                move: compose(getMove, moveDisk),
+              })}
             >
               Get solution
             </Button>
           </Box>
         </Flex>
 
-        <Flex
-          pt={3}
-          justifyContent="space-around"
-        >
-          {
-            Object.keys(playground).map((key) => {
-              const disks = playground[key];
-
-              return (
-                <Torch
-                  key={key}
-                  n={n}
-                >
-                  {
-                    disks.map((options) => (
-                      <Disk
-                        key={options.color}
-                        {...options}
-                      />
-                    ))
-                  }
-                </Torch>
-              );
-            })
-          }
-        </Flex>
+        <Playground
+          playground={playground}
+          height={n}
+        />
 
         <br />
         <br />
@@ -145,40 +103,6 @@ const HanoiTowerResolver = () => {
           Solution
         </Text>
 
-        <Box>
-          {
-            solution.map((step, i) => (
-              <Flex
-                // eslint-disable-next-line react/no-array-index-key
-                key={i}
-                pt={3}
-                justifyContent="space-around"
-              >
-                {
-                  Object.keys(step).map((key) => {
-                    const disks = step[key];
-
-                    return (
-                      <Torch
-                        key={key}
-                        n={n}
-                      >
-                        {
-                          disks.map((options) => (
-                            <Disk
-                              key={options.color}
-                              {...options}
-                            />
-                          ))
-                        }
-                      </Torch>
-                    );
-                  })
-                }
-              </Flex>
-            ))
-          }
-        </Box>
       </Fragment>
     </ThemeProvider>
   );

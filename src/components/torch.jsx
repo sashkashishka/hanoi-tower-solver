@@ -1,20 +1,26 @@
 import React from 'react';
-import { Flex } from 'rebass';
+import { Box } from 'rebass';
 
-export default ({ n, ...rest }) => (
-  <Flex
-    flexDirection="column"
-    justifyContent="flex-end"
-    alignItems="center"
-    height={`${(n + 1) * 10}px`}
+export default ({ n, children, ...rest }) => (
+  <Box
+    height={`${n * 10}px`}
     width={`${n * 10}px`}
     sx={{
       position: 'relative',
-      background: 'linear-gradient(90deg, brown 10px, white 2px)',
-      backgroundPosition: '100% 0',
-      backgroundRepeat: 'repeat-y',
-      backgroundSize: '57%',
     }}
     {...rest}
-  />
+  >
+    <Box
+      height="100%"
+      width="8px"
+      bg="brown"
+      sx={{
+        position: 'absolute',
+        left: '50%',
+        transform: 'translateX(-50%)',
+        zIndex: 0,
+      }}
+    />
+    {children}
+  </Box>
 );

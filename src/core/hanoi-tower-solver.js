@@ -1,5 +1,3 @@
-import { clone } from 'ramda';
-
 /**
  * @typedef {Object} Playground
  * @param {Array<number>} Playground.A
@@ -9,14 +7,13 @@ import { clone } from 'ramda';
 
 /**
  * @param {number} n
- * @param {function} diskProps
  * @returns {Playground}
  */
-export function generatePlayground(n, diskProps = (item, i) => i + 1) {
+export function generatePlayground(n) {
   return {
-    A: Array(n).fill(1).map(diskProps),
-    B: [],
-    C: [],
+    A: Array(n).fill(1).map((item, i, arr) => arr.length - i).join(''),
+    B: '',
+    C: '',
   };
 }
 
@@ -29,16 +26,11 @@ export function generatePlayground(n, diskProps = (item, i) => i + 1) {
  * @return {Playground}
  */
 export function moveDisk(from, to, playground) {
-  const newPlayground = clone(playground);
-  const fromPeg = newPlayground[from].slice();
-  const toPeg = newPlayground[to].slice();
-
-  toPeg.unshift(fromPeg.shift());
-
-  newPlayground[from] = fromPeg;
-  newPlayground[to] = toPeg;
-
-  return newPlayground;
+  return {
+    ...playground,
+    [from]: playground[from].slice(0, -1),
+    [to]: playground[to] + playground[from].slice(-1),
+  };
 }
 
 

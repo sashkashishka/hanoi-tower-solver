@@ -8,7 +8,7 @@ module.exports = {
   devtool: 'inline-cheap-source-map',
 
   devServer: {
-    hot: false,
+    hot: true,
     contentBase: path.resolve(__dirname, 'dist'),
     port: 8080,
     inline: true,
