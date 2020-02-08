@@ -33,6 +33,14 @@ export function moveDisk(from, to, playground) {
   };
 }
 
+/**
+ * Calc minimum quantity of turns to move pyramid from torch A to torch C
+ * @param {number} n
+ * @return {number}
+ */
+function turnsQty(n) {
+  return 2 ** n + 1;
+}
 
 /**
  * @param {object} options
@@ -43,7 +51,7 @@ export function moveDisk(from, to, playground) {
  * @param {Playground} options.playground
  * @return {Playground}
  */
-function ht(options) {
+function* ht(options) {
   const {
     from = 'A',
     to = 'C',
@@ -58,10 +66,12 @@ function ht(options) {
   }
 
   if (height === 1) {
-    return move(from, to, playground);
+    const result = yield move(from, to, playground);
+
+    return result;
   }
 
-  const firstMovePlayground = ht({
+  const firstIteration = yield* ht({
     from,
     to: middle,
     middle: to,
@@ -70,16 +80,46 @@ function ht(options) {
     move,
   });
 
-  const moveLargestDiskPlayground = move(from, to, firstMovePlayground);
+  const secondIteration = yield* ht({
+    from,
+    to,
+    middle,
+    height: 1,
+    playground: firstIteration,
+    move,
+  });
 
-  return ht({
+  return yield* ht({
     from: middle,
     to,
     middle: from,
     height: height - 1,
-    playground: moveLargestDiskPlayground,
+    playground: secondIteration,
     move,
   });
 }
+
+window.ht = ht;
+
+function* solver(n) {
+  let moveNum = 1;
+  const cache = [generatePlayground(n)];
+  const lazyHt = ht({ height: n });
+  let prev = cache[0];
+
+
+  while (true) {
+    if (cache[moveNum]) {
+      prev = cache[moveNum];
+    } else {
+      prev = lazyHt.next(prev).value;
+      cache[moveNum] = prev;
+    }
+
+    moveNum = yield cache[moveNum];
+  }
+}
+
+window.solver = solver;
 
 export default ht;
