@@ -109,6 +109,8 @@ function* solver(n) {
 
 
   while (true) {
+    // TODO to jump on desired step => wrap into while (step !== moveNum) and cache intermediate results
+    // TODO cache as JSON.stringify
     if (cache[moveNum]) {
       prev = cache[moveNum];
     } else {
