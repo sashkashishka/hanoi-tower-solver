@@ -1,8 +1,10 @@
 import React from 'react';
-import { Box } from 'rebass';
+import { Flex, Box } from 'rebass';
 
 export default ({ n, children, ...rest }) => (
-  <Box
+  <Flex
+    alignItems="center"
+    flexDirection="column-reverse"
     height={`${n * 10}px`}
     width={`${n * 10}px`}
     sx={{
@@ -12,7 +14,7 @@ export default ({ n, children, ...rest }) => (
   >
     <Box
       height="100%"
-      width="8px"
+      width="2px"
       bg="brown"
       sx={{
         position: 'absolute',
@@ -22,5 +24,17 @@ export default ({ n, children, ...rest }) => (
       }}
     />
     {children}
-  </Box>
+
+    <Box
+      height="4px"
+      width="110%"
+      bg="brown"
+      sx={{
+        position: 'absolute',
+        bottom: '0',
+        transform: 'translateY(100%)',
+        zIndex: 0,
+      }}
+    />
+  </Flex>
 );

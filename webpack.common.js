@@ -16,6 +16,7 @@ module.exports = {
       Components: path.resolve(__dirname, 'src/components'),
       Constants: path.resolve(__dirname, 'src/constants'),
       Core: path.resolve(__dirname, 'src/core'),
+      Utils: path.resolve(__dirname, 'src/utils'),
     },
   },
 
@@ -54,6 +55,7 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: 'assets/index.html',
+      favicon: 'assets/favicon.png',
     }),
   ],
 };

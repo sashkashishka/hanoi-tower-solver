@@ -10,7 +10,7 @@ module.exports = {
   devServer: {
     hot: true,
     contentBase: path.resolve(__dirname, 'dist'),
-    port: 8080,
+    port: 8181,
     inline: true,
     stats: 'minimal',
     watchContentBase: true,

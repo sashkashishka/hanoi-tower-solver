@@ -6,8 +6,7 @@ export default ({ size, color }) => (
   <Box
     height="10px"
     width={`${10 * size}px`}
-    margin="auto"
-    bg="#f8f800"
+    bg="disk"
     fontSize="10px"
     lineHeight="10px"
     textAlign="center"

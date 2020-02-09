@@ -5,6 +5,7 @@
   "license": "MIT",
   "dependencies": {
     "@hot-loader/react-dom": "^16.11.0",
+    "@rebass/forms": "^4.0.6",
     "emotion-theming": "^10.0.27",
     "prop-types": "^15.7.2",
     "ramda": "^0.26.1",
@@ -15,6 +16,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.8.4",
+    "@babel/plugin-transform-regenerator": "^7.8.3",
     "@babel/preset-env": "^7.8.4",
     "@babel/preset-react": "^7.8.3",
     "babel-eslint": "^10.0.3",

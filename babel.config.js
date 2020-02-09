@@ -3,19 +3,13 @@ module.exports = (api) => {
 
   return {
     presets: [
-      [
-        '@babel/preset-env',
-        {
-          targets: {
-            node: '10.8.0',
-          },
-        },
-      ],
+      '@babel/preset-env',
       '@babel/preset-react',
     ],
     plugins: [
       'emotion',
       'react-hot-loader/babel',
+      '@babel/plugin-transform-regenerator',
     ],
   };
 };
