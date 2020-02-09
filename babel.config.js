@@ -9,7 +9,7 @@ module.exports = (api) => {
     plugins: [
       'emotion',
       'react-hot-loader/babel',
-      '@babel/plugin-transform-regenerator',
+      '@babel/plugin-transform-runtime',
     ],
   };
 };
